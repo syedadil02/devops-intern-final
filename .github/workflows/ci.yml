@@ -1,0 +1,38 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test-and-build:
+    name: Build & Run Pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Test Python Script
+        run: |
+          python hello.py
+
+      - name: Test Linux Bash Script
+        run: |
+          chmod +x scripts/sysinfo.sh
+          ./scripts/sysinfo.sh
+
+      - name: Build Docker Image
+        run: |
+          docker build -t hello-devops:latest .
+
+      - name: Run Docker Container
+        run: |
+          docker run --rm hello-devops:latest

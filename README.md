@@ -239,6 +239,6 @@ mlflow ui --port 5000
 Navigate to [http://localhost:5000](http://localhost:5000) to inspect parameters (`learning_rate`, `batch_size`, `epochs`), multi-epoch loss/accuracy metrics, and generated artifacts.
 
 #### MLflow Experiment Tracking Dashboard Screenshot
-![MLflow Dashboard](screenshots/ML-Flow.png)
+![MLflow Dashboard](screenshots/ML-flow.png)
 
 ---

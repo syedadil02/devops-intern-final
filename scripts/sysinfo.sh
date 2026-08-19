@@ -18,7 +18,3 @@ date
 
 echo -e "\n[3] Disk Usage (Human Readable):"
 df -h
-
-echo "=========================================="
-echo "          END OF REPORT                   "
-echo "=========================================="

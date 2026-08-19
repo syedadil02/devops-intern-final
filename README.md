@@ -16,7 +16,7 @@ This repository demonstrates an end-to-end DevOps workflow built with industry-s
 - **GitHub Actions** (Continuous Integration & Automated Testing)
 - **HashiCorp Nomad** (Service orchestration and job scheduling)
 - **Grafana Loki & Promtail** (Centralized log aggregation and monitoring)
-- **MLflow Tracking** (Machine learning experiment tracking)
+- **MLflow Tracking** *(Extra Credit)* (Machine learning experiment tracking)
 
 ---
 
@@ -35,16 +35,24 @@ devops-intern-final/
 │   ├── loki_setup.txt             # Loki & Promtail setup guide & verification notes
 │   ├── docker-compose.yml         # Full monitoring stack (Loki + Promtail + Grafana)
 │   ├── loki-config.yml            # Loki server configuration
-│   └── promtail-config.yml        # Promtail log shipping configuration
-├── mlflow/                        # Experiment tracking
+│   ├── promtail-config.yml        # Promtail log shipping configuration
+│   └── grafana/
+│       └── provisioning/
+│           └── datasources/
+│               └── datasources.yml # Auto-provisioned Loki data source for Grafana
+├── mlflow/                        # [Extra Credit] Experiment tracking
 │   ├── experiment.py              # Dummy experiment logging metrics/parameters
 │   ├── requirements.txt           # MLflow dependencies
 │   └── README.md                  # MLflow execution instructions
+├── screenshots/                   # Verification screenshots
+│   ├── grafana_logs.png           # Grafana Loki LogQL exploration screenshot
+│   └── ML-Flow.png                # MLflow Experiment tracking dashboard screenshot
 ├── Dockerfile                     # Docker container definition for hello.py
 ├── hello.py                       # Core Python application
 ├── .gitignore                     # Git ignore rules
 └── README.md                      # Complete project documentation
 ```
+
 ---
 
 ## Step-by-Step Implementation & Run Instructions
@@ -89,11 +97,7 @@ Filesystem      Size  Used Avail Use% Mounted on
 devtmpfs        7.6G     0  7.6G   0% /dev
 /dev/nvme0n1p3  952G  571G  379G  61% /
 ...
-==========================================
-          END OF REPORT
-==========================================
 ```
-
 ---
 
 ### Step 3: Docker Basics & Containerization
@@ -113,6 +117,7 @@ docker run --rm hello-devops:latest
 ```text
 Hello, DevOps!
 ```
+
 ---
 
 ### Step 4: CI/CD with GitHub Actions
@@ -209,9 +214,12 @@ logcli query '{job="hello-devops"}'
 - Go to **Explore** -> Select **Loki** data source.
 - Run query: `{job="hello-devops"} |= "Hello, DevOps!"`.
 
+#### Grafana Loki Log Explorer Screenshot
+![Grafana Loki Log Explorer](screenshots/grafana_logs.png)
+
 ---
 
-### Step 7: Extra Credit - MLflow Experiment Tracking
+### Step 7: MLflow Experiment Tracking
 An automated experiment tracking script is provided under [`mlflow/`](file:///var/home/syedadil/devops-intern-final/mlflow/).
 
 **1. Install Dependencies:**
@@ -228,7 +236,9 @@ python mlflow/experiment.py
 ```bash
 mlflow ui --port 5000
 ```
-Navigate to [http://localhost:5000](http://localhost:5000) to inspect parameters (`learning_rate`, `batch_size`, `epochs`), multi-epoch loss/accuracy metrics, and
-generated artifacts.
+Navigate to [http://localhost:5000](http://localhost:5000) to inspect parameters (`learning_rate`, `batch_size`, `epochs`), multi-epoch loss/accuracy metrics, and generated artifacts.
+
+#### MLflow Experiment Tracking Dashboard Screenshot
+![MLflow Dashboard](screenshots/ML-Flow.png)
 
 ---
